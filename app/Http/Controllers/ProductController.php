@@ -24,29 +24,22 @@ class ProductController extends Controller
     public function save(Request $request){
         $request->validate([
             "name"=>"required",
-//           "image"=>"required",
-//           "description"=>"required",
             "price"=>"required|min:0",
             "qty"=>"required|min:0",
-            "category_id"=>"required|numeric|min:1"
+            "id_category"=>"required|numeric|min:1"
         ],[
             "name.required"=>"Vui lòng nhập tên sản phẩm.!",
-            "image.required"=>"Vui lòng nhập file ảnh.!",
-            "description.required"=>"Vui lòng nhập thông tin sản phẩm.!",
             "price.required"=>"Vui lòng nhập giá sản phẩm.!",
             "qty.required"=>"Vui lòng nhập số lượng sản phẩm.!",
-            "category_id.required"=>"Vui lòng nhập tên loại sản phẩm.!",
+            "id_category.required"=>"Vui lòng nhập tên loại sản phẩm.!",
         ]);
-        //upload file
         $image = null;
         if ($request->has("image")){
             $file = $request->file("image");
-//            $fileName = $file->getClientOriginalName(); // Lấy tên file
-            $exName = $file->getClientOriginalExtension();// lấy duoi file
+            $exName = $file->getClientOriginalExtension();
             $fileName = time().".".$exName;
-            $fileSize = $file->getSize(); //lấy size
+            $fileSize = $file->getSize();
             $allow = ["png","jpeg","jpg","gif"];
-//            dd($fileName);
             if (in_array($exName,$allow)){
                 if ($fileSize < 10000000){
                     try {
@@ -63,7 +56,7 @@ class ProductController extends Controller
                 "description"=>$request->get("description"),
                 "price"=>$request->get("price"),
                 "qty"=>$request->get("qty"),
-                "category_id"=>$request->get("category_id")
+                "id_category"=>$request->get("id_category")
             ]);
         }catch (\Exception $e){
             abort(404);
@@ -101,7 +94,12 @@ class ProductController extends Controller
     }
 
     public function destroy($id){
-        Product::destroy($id);
+        $products = Product::findOrFail($id);
+        $destinationPath = "upload".$products->image;
+        if (file_exists($destinationPath)){
+            unlink($destinationPath);
+        }
+        $products->delete();
         return redirect()->to("products");
     }
 }

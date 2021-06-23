@@ -9,11 +9,11 @@
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-7" style="padding-bottom:120px">
-                <form action="{{url("products/save")}}" method="post" enctype="multipart/form-data">
+                <form action="{{url("save")}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label>Name:</label>
-                        <input type="text" value="{{old("name")}}" class="form-control" id="name" name="name" >
+                        <input type="text" value="{{old("name")}}" class="form-control" name="name" >
                         @error("name")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                     </div>
                     <div class="form-group">
@@ -22,22 +22,22 @@
                     </div>
                     <div class="form-group">
                         <label>Description:</label>
-                        <input type="text" value="{{old("description")}}" class="form-control" id="name" name="description">
+                        <input type="text" value="{{old("description")}}" class="form-control" name="description">
                     </div>
                     <div class="form-group">
                         <label>Price:</label>
-                        <input type="number" min="0" value="{{old("price")}}" class="form-control" id="name" name="price">
+                        <input type="number" min="0" value="{{old("price")}}" class="form-control" name="price">
                     </div>
                     <div class="form-group">
                         <label>Qty:</label>
-                        <input type="number" min="0" class="form-control" id="name" name="qty" >
+                        <input type="number" min="0" class="form-control" name="qty" >
                     </div>
                     <div class="form-group">
                         <label>Category_id</label>
-                        <select name="category_id" class="form-control" >
+                        <select name="id_category" class="form-control" >
                             <option value="0">Select a category</option>
                             @foreach($category as $cat)
-                                <option  @if(old("category_id")==$cat->id)selected @endif value="{{$cat->id}}">
+                                <option  @if(old("id_category")==$cat->id)selected @endif value="{{$cat->id}}">
                                     {{$cat->name}}
                                 </option>
                             @endforeach

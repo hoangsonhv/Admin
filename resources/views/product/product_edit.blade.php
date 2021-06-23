@@ -18,7 +18,8 @@
                     </div>
                     <div class="form-group">
                         <label>Image</label>
-                        <input type="file" name="image" value="{{$item->getImage()}}" class="form-control" placeholder="Image..">
+                        <input type="file" name="image" value="{{$item->getImage()}}" placeholder="Image..">
+                        <img style="width: 70px;height: 70px" src="{{$item->getImage()}}"/>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
