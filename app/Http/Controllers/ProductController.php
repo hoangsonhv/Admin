@@ -76,26 +76,53 @@ class ProductController extends Controller
     public function update(Request $request,$id){
         $request->validate([
             "name"=>"required",
-            "image"=>"required",
             "price"=>"required|min:0",
             "qty"=>"required|min:0",
-            "category_id"=>"required|numeric|min:1"
+            "id_category"=>"required|numeric|min:1"
         ]);
-        $product = Product::findOrFail($id);
-        $product->update([
-            "name"=>$request->get("name"),
-            "image"=>$request->get("image"),
-            "description"=>$request->get("description"),
-            "price"=>$request->get("price"),
-            "qty"=>$request->get("qty"),
-            "category_id"=>$request->get("category_id")
-        ]);
+        $image = request("image");
+        if ($image){
+            $image = null;
+            if ($request->has("image")){
+                $file = $request->file("image");
+                $exName = $file->getClientOriginalExtension();
+                $fileName = time().".".$exName;
+                $fileSize = $file->getSize();
+                $allow = ["png","jpeg","jpg","gif"];
+                if (in_array($exName,$allow)){
+                    if ($fileSize < 10000000){
+                        try {
+                            $file->move("upload",$fileName);
+                            $image = $fileName;
+                        }catch (\Exception $e){}
+                    }
+                }
+            }
+            $product = Product::findOrFail($id);
+            $product->update([
+                "name"=>$request->get("name"),
+                "image"=>$image,
+                "description"=>$request->get("description"),
+                "price"=>$request->get("price"),
+                "qty"=>$request->get("qty"),
+                "id_category"=>$request->get("id_category")
+            ]);
+        }else{
+            $product = Product::findOrFail($id);
+            $product->update([
+                "name"=>$request->get("name"),
+                "description"=>$request->get("description"),
+                "price"=>$request->get("price"),
+                "qty"=>$request->get("qty"),
+                "id_category"=>$request->get("id_category")
+            ]);
+        }
         return redirect()->to("products");
     }
 
     public function destroy($id){
         $products = Product::findOrFail($id);
-        $destinationPath = "upload".$products->image;
+        $destinationPath = $products->image;
         if (file_exists($destinationPath)){
             unlink($destinationPath);
         }
