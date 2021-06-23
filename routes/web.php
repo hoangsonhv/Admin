@@ -14,6 +14,12 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get("products",[ProductController::class,"list"]);
 Route::get('products/themmoi',[ProductController::class,"add"]);
@@ -21,3 +27,7 @@ Route::post('save',[ProductController::class,"save"]);
 Route::get('products/edit/{id}',[ProductController::class,"edit"]);
 Route::post('products/update/{id}',[ProductController::class,"update"]);
 Route::delete('products/delete/{id}',[ProductController::class,"destroy"]);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
