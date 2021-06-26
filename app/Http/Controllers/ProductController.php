@@ -120,9 +120,16 @@ class ProductController extends Controller
         return redirect()->to("products");
     }
 
+<<<<<<< HEAD
     public function destroy($id){
         $products = Product::findOrFail($id);
         $destinationPath = $products->image;
+=======
+
+    public function destroy($id){
+        $products = Product::findOrFail($id);
+        $destinationPath = "upload".$products->image;
+>>>>>>> up
         if (file_exists($destinationPath)){
             unlink($destinationPath);
         }
