@@ -52,10 +52,17 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
+<<<<<<< HEAD
                             <a href="#">List Category</a>
                         </li>
                         <li>
                             <a href="#">Add Category</a>
+=======
+                            <a href="{{url("/categories")}}">List Category</a>
+                        </li>
+                        <li>
+                            <a href="{{url("/categories/add")}}">Add Category</a>
+>>>>>>> up
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

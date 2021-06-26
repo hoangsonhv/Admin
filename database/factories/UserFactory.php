@@ -2,11 +2,17 @@
 
 namespace Database\Factories;
 
+<<<<<<< HEAD
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+=======
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+>>>>>>> up
 
 class UserFactory extends Factory
 {
@@ -46,6 +52,7 @@ class UserFactory extends Factory
             ];
         });
     }
+<<<<<<< HEAD
 
     /**
      * Indicate that the user should have a personal team.
@@ -66,4 +73,6 @@ class UserFactory extends Factory
             'ownedTeams'
         );
     }
+=======
+>>>>>>> up
 }

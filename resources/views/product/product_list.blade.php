@@ -35,14 +35,22 @@
                         <td>{{$item->id_category}}</td>
                         <td>{{$item->created_at}}</td>
                         <td>{{$item->updated_at}}</td>
+<<<<<<< HEAD
                         <td class="center"><a href="{{url("products/edit",["id"=>$item->id])}}"><i class="fa fa-trash-o  fa-fw"></i>Sửa</a></td>
+=======
+                        <td class="center"><a style="text-decoration: none" href="{{url("products/edit",["id"=>$item->id])}}"><i class="fa fa-pencil fa-fw"></i>Sửa</a></td>
+>>>>>>> up
                         <td class="center">
                             <a href="{{url("products/delete",["id"=>$item->id])}}" style="text-decoration: none">
                                 <form method="post" action="{{url("products/delete",["id"=>$item->id])}}">
                                     @method('DELETE')
                                     @csrf
+<<<<<<< HEAD
                                     <i class="fa fa-pencil fa-fw"></i>
                                     <button type="submit">Delete</button>
+=======
+                                    <button style="border: none;background: none" type="submit"><i class="fa fa-trash-o  fa-fw"></i> Delete</button>
+>>>>>>> up
                                 </form>
                             </a>
                         </td>
